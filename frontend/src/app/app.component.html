@@ -1,1 +1,20 @@
-<h2>My angular project</h2>>
+<h2 style="text-align: center; padding: 2rem;">Stock Managment</h2>
+
+<table id="stock" *ngIf="showList">
+    <tr>
+        <th>Product Name</th>
+        <th>Product sku_code</th>
+        <th *ngFor="let warehouse of warehouses">{{warehouse.NAME}}</th>
+    </tr>
+    <tr *ngFor="let product of tableData">
+        <td onClick="toggleProduct(product)">{{product.NAME}}</td>
+        <td>{{product.SKU_CODE}}</td>
+        <td *ngFor="let warehouse of warehouses">{{product[warehouse.WH_CODE]}}</td>
+    </tr>
+</table>
+<ng-container *ngIf="showProduct">
+    <div>
+        <div>Product Name</div>
+        <div>{{currentProduct.NAME}}</div>
+    </div>
+</ng-container>
