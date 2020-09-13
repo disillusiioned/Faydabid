@@ -7,7 +7,7 @@
         <th *ngFor="let warehouse of warehouses">{{warehouse.NAME}}</th>
     </tr>
     <tr *ngFor="let product of tableData">
-        <td onClick="toggleProduct(product)">{{product.NAME}}</td>
+        <td style="cursor: pointer;" (click)="toggleProduct(product)">{{product.NAME}}</td>
         <td>{{product.SKU_CODE}}</td>
         <td *ngFor="let warehouse of warehouses">{{product[warehouse.WH_CODE]}}</td>
     </tr>
