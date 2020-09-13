@@ -42,8 +42,8 @@
                 <input id="LOW_ITEM_THRESHOLD" #LOW_ITEM_THRESHOLD="ngModel" name="LOW_ITEM_THRESHOLD"
                     [(ngModel)]="productChanges.LOW_ITEM_THRESHOLD" type="number" required>
             </div>
-            <div class="row">
-                <button type="submit" [disabled]="!productEditForm.form.valid" class="left bold">Save</button>
+            <div class="row" style="justify-content: space-evenly !important; display: flex !important;">
+                <button type="submit" [disabled]="!productEditForm.form.valid" class="left bold left_button">Save</button>
                 <button (click)="getStock()" class="right">Cancel</button>
             </div>
         </div>
@@ -69,8 +69,8 @@
                 <input id="PINCODE" #PINCODE="ngModel" name="PINCODE" [(ngModel)]="warehouse.PINCODE" type="text"
                     required>
             </div>
-            <div class="row">
-                <button type="submit" [disabled]="!createWarehouseForm.form.valid" class="left bold">Save</button>
+            <div class="row" style="justify-content: space-evenly !important; display: flex !important;">
+                <button type="submit" [disabled]="!createWarehouseForm.form.valid" class="left bold left_button">Save</button>
                 <button (click)="getStock()" class="right">Cancel</button>
             </div>
         </div>
