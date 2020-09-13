@@ -4,6 +4,12 @@ export class Product {
     PRICE: number;
 }
 export class Warehouse {
+    constructor() {
+        this.NAME = null;
+        this.WH_CODE = null;
+        this.PINCODE = null;
+        this.MAX_CAPACITY = null;
+    }
     NAME: string;
     WH_CODE: string;
     PINCODE: string;

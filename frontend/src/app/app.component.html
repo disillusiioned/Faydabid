@@ -1,5 +1,9 @@
-<h2 style="text-align: center; padding: 2rem;">Stock Managment</h2>
-
+<h1 style="text-align: center; padding: 2rem;">Stock Managment</h1>
+<div style="padding: 2rem;">
+    <button style="text-align: center; cursor: pointer; padding: 0.8rem; border-radius: 5px !important;"
+        *ngIf="!newWarehouse" (click)="createWarehouse()">Create
+        Warehouse</button>
+</div>
 <table id="stock" *ngIf="showList">
     <tr>
         <th>Product Name</th>
@@ -9,12 +13,66 @@
     <tr *ngFor="let product of tableData">
         <td style="cursor: pointer;" (click)="toggleProduct(product)">{{product.NAME}}</td>
         <td>{{product.SKU_CODE}}</td>
-        <td *ngFor="let warehouse of warehouses">{{product[warehouse.WH_CODE]}}</td>
+        <td *ngFor="let warehouse of warehouses" [ngStyle]="showRed(product, warehouse.WH_CODE) && {'color': 'red'}">
+            {{product[warehouse.WH_CODE] && product[warehouse.WH_CODE].count ? product[warehouse.WH_CODE].count : 'Nil'}}
+        </td>
     </tr>
 </table>
 <ng-container *ngIf="showProduct">
-    <div>
-        <div>Product Name</div>
-        <div>{{currentProduct.NAME}}</div>
-    </div>
+    <form #productEditForm="ngForm" (ngSubmit)="saveProductDetails()">
+        <div class="product_info">
+            <h2 style="text-align: center; padding: 2rem;">Product Information</h2>
+            <strong *ngIf="!!errorMessage"
+                style="text-align: center; padding: 2rem;color: red;">{{errorMessage}}</strong>
+            <div class="row">
+                <div class="left bold">Product Name</div>
+                <div class="right">{{currentProduct.NAME}}</div>
+            </div>
+            <div class="row">
+                <div class="left bold">SKU Code</div>
+                <div class="right">{{currentProduct.SKU_CODE}}</div>
+            </div>
+            <div class="row">
+                <div class="left bold">Item Count</div>
+                <input id="ITEM_COUNT" #ITEM_COUNT="ngModel" name="ITEM_COUNT" [(ngModel)]="productChanges.ITEM_COUNT"
+                    type="number" required>
+            </div>
+            <div class="row">
+                <div class="left bold">Minimum Item Threshold</div>
+                <input id="LOW_ITEM_THRESHOLD" #LOW_ITEM_THRESHOLD="ngModel" name="LOW_ITEM_THRESHOLD"
+                    [(ngModel)]="productChanges.LOW_ITEM_THRESHOLD" type="number" required>
+            </div>
+            <div class="row">
+                <button type="submit" [disabled]="!productEditForm.form.valid" class="left bold">Save</button>
+                <button (click)="getStock()" class="right">Cancel</button>
+            </div>
+        </div>
+    </form>
+</ng-container>
+<ng-container *ngIf="newWarehouse">
+    <form #createWarehouseForm="ngForm" (ngSubmit)="saveWarehouse()">
+        <div class="product_info">
+            <h2 style="text-align: center; padding: 2rem;">Fill Warehouse Information</h2>
+            <strong *ngIf="!!warehouseErrorMessage"
+                style="text-align: center; padding: 2rem;color: red;">{{warehouseErrorMessage}}</strong>
+            <div class="row">
+                <div class="left bold">Warehouse Name</div>
+                <input id="WAREHOUSE_NAME" #WAREHOUSE_NAME="ngModel" name="WAREHOUSE_NAME" [(ngModel)]="warehouse.NAME" type="text" required>
+            </div>
+            <div class="row">
+                <div class="left bold">Max Capacity</div>
+                <input id="MAX_CAPACITY" #MAX_CAPACITY="ngModel" name="MAX_CAPACITY"
+                    [(ngModel)]="warehouse.MAX_CAPACITY" type="number" required>
+            </div>
+            <div class="row">
+                <div class="left bold">Pincode</div>
+                <input id="PINCODE" #PINCODE="ngModel" name="PINCODE" [(ngModel)]="warehouse.PINCODE" type="text"
+                    required>
+            </div>
+            <div class="row">
+                <button type="submit" [disabled]="!createWarehouseForm.form.valid" class="left bold">Save</button>
+                <button (click)="getStock()" class="right">Cancel</button>
+            </div>
+        </div>
+    </form>
 </ng-container>
